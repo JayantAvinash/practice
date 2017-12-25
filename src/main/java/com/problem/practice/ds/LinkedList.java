@@ -39,5 +39,26 @@ public class LinkedList {
 		}
 		return false;
 	}
+	
+	public void print() {
+		if(root != null) {
+			TreeNode temp = root;
+			while(temp != null) {
+				System.out.print(temp.getValue() + " ");
+				temp = temp.getrChild();
+			}
+			System.out.println();
+		}
+	}
+	
+	public static void main(String[] args) {
+		LinkedList l = new LinkedList();
+		for(int i = 1; i < 10; i++) {
+			l.add(i);
+		}
+		l.print();
+		l.delete();
+		l.print();
+	}
 
 }
