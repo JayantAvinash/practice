@@ -1,5 +1,7 @@
 package com.problem.practice.ds;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 import com.problem.practice.commons.TreeNode;
@@ -232,6 +234,94 @@ public class BinarySearchTree {
 		return 0;
 	}
 	
+	public int height() {
+		if(root == null) {
+			return 0;
+		} else {
+			TreeNode temp = root;
+			return height(temp);
+		}
+	}
+	
+	private int height(TreeNode temp) {
+		if(temp == null) {
+			return 0;
+		} else {
+			return 1 + Math.max(height(temp.getlChild()), height(temp.getrChild()));
+		}
+	}
+
+	public void zigZagOrderTraversal() {
+		if(root != null) {
+			Stack<TreeNode> s1 = new Stack<TreeNode>();
+			s1.push(root);
+			Stack<TreeNode> s2 = new Stack<TreeNode>();
+			while(!s1.isEmpty() || !s2.isEmpty()) {
+				while(!s1.isEmpty()) {
+					TreeNode temp = s1.pop();
+					System.out.print(temp.getValue() + " ");
+					if(temp.getlChild() != null) {
+						s2.push(temp.getlChild());
+					}
+					if(temp.getrChild() != null) {
+						s2.push(temp.getrChild());
+					}
+					
+				}
+				while(!s2.isEmpty()) {
+					TreeNode temp = s2.pop();
+					System.out.print(temp.getValue() + " ");
+					if(temp.getlChild() != null) {
+						s1.push(temp.getlChild());
+					}
+					if(temp.getrChild() != null) {
+						s1.push(temp.getrChild());
+					}
+				}
+			}
+		}
+		System.out.println();
+	}
+	
+	public void levelOrderTraversal() {
+		int height = height();
+		for(int i = 1; i <= height; i++) {
+			printGivenLevel(root, i);
+		}
+	}
+	
+	
+	private void printGivenLevel(TreeNode temp, int i) {
+		if (temp != null) {
+			if (i == 1) {
+				System.out.print(temp.getValue() + " ");
+			} else {
+				printGivenLevel(temp.getlChild(), i - 1);
+				printGivenLevel(temp.getrChild(), i - 1);
+			} 
+		}
+		
+	}
+	
+	public void levelOrderQueue() {
+		Queue<TreeNode> queue = new LinkedList<TreeNode>();
+		
+		if(root != null) {
+			TreeNode temp = root;
+			queue.add(temp);
+			while(!queue.isEmpty()) {
+				temp = queue.poll();
+				System.out.print(temp.getValue() + " ");
+				if(temp.getlChild() != null) {
+					queue.add(temp.getlChild());
+				}
+				if(temp.getrChild() != null) {
+					queue.add(temp.getrChild());
+				}
+			}
+		}
+	}
+
 	public static void main(String[] args) {
 		BinarySearchTree bst = new BinarySearchTree();
 		for(int i = 6; i < 15; i++) {
@@ -251,5 +341,15 @@ public class BinarySearchTree {
 		bst.recursiveInorder();
 		bst.stackInorder();
 		bst.morrisInorder();
+		
+		System.out.println("Zigzag order:");
+		bst.zigZagOrderTraversal();
+		
+		System.out.println("Height: " + bst.height());
+		
+		System.out.println("LevelOrder: " );
+		bst.levelOrderTraversal();
+		System.out.println();
+		bst.levelOrderTraversal();
 	}
 }
