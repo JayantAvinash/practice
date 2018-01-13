@@ -4,7 +4,7 @@ import com.problem.practice.commons.TreeNode;
 
 public class LinkedList {
 	
-	TreeNode root;
+	private TreeNode root;
 	
 	public void add(int a) {
 		if(root == null) {
@@ -59,6 +59,20 @@ public class LinkedList {
 		l.print();
 		l.delete();
 		l.print();
+	}
+
+	/**
+	 * @return the root
+	 */
+	public TreeNode getRoot() {
+		return root;
+	}
+
+	/**
+	 * @param root the root to set
+	 */
+	public void setRoot(TreeNode root) {
+		this.root = root;
 	}
 
 }
