@@ -13,6 +13,9 @@ public class ReverseLinkedList {
 		l.print();
 		reverseLinkedList(l);
 		l.print();
+		Node head = recursiveReverse(l.getRoot(), null);
+		l.setRoot(head);
+		l.print();
 	}
 
 	private static void reverseLinkedList(SinglyLinkedList l) {
@@ -28,5 +31,19 @@ public class ReverseLinkedList {
 		}
 		l.setRoot(p);
 	}
+	
+	private static Node recursiveReverse(Node current, Node prev) {
+		Node head = null;
+		if(current.getNext() == null) {
+			head = current;
+			current.setNext(prev);
+			return head;
+		}
+		Node temp = current.getNext();
+		current.setNext(prev);
+		return recursiveReverse(temp, current);
+		
+	}
+	
 	
 }
